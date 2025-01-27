@@ -21,7 +21,7 @@ def main():
     Player.containers = (updatable, drawable)
     Asteroid.containers = (asteroids, updatable, drawable)
     AsteroidField.containers = updatable
-    Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+    player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
     AsteroidField()
 
     while 1:
@@ -32,6 +32,12 @@ def main():
         # state updating
         for sprite in updatable:
             sprite.update(dt)
+
+        # collision checking
+        for asteroid in asteroids:
+            if asteroid.check_collision(player):
+                print("Game Over")
+                return
 
         # drawing
         screen.fill("#000000")
